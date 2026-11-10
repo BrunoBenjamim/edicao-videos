@@ -1,0 +1,418 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bruno Benjamim</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap">
+<style>
+/* Layout: página única. Hero com uma linha do tempo de edição desenhada em CSS, depois trabalhos em grade, serviços em lista e rodapé. */
+:root {
+  --bg: #0b100d;
+  --surface: #121a15;
+  --surface-2: #18221c;
+  --line: #232e27;
+  --fg: #e8efea;
+  --muted: #8b9a90;
+  --accent: #7fd99a;
+  --accent-ink: #0b100d;
+  --font-display: 'Space Grotesk', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-body: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 0;
+}
+
+a { color: inherit; text-decoration: none; }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+
+.wrap { max-width: 1080px; margin: 0 auto; }
+
+/* Cabeçalho */
+.top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-block: 20px;
+  border-bottom: 1px solid var(--line);
+}
+.brand { font-family: var(--font-display); font-weight: 600; font-size: 18px; letter-spacing: -0.01em; }
+.brand span { color: var(--muted); font-weight: 500; }
+.nav { display: flex; gap: 22px; font-size: 14px; color: var(--muted); }
+.nav a:hover { color: var(--fg); }
+
+/* Hero */
+.hero { padding-block: 72px 56px; display: grid; gap: 40px; }
+.eyebrow { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); }
+h1 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(36px, 7vw, 68px);
+  line-height: 1.04;
+  letter-spacing: -0.03em;
+  margin: 14px 0 0;
+  max-width: 14ch;
+  text-wrap: balance;
+}
+.lead { color: var(--muted); font-size: 18px; max-width: 52ch; margin: 20px 0 0; }
+.actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 12px 20px; border-radius: 8px; font-weight: 600; font-size: 15px;
+  border: 1px solid var(--line); background: transparent; color: var(--fg);
+}
+.btn:hover { border-color: var(--muted); }
+.btn.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.btn.primary:hover { filter: brightness(1.08); }
+
+/* Linha do tempo */
+.timeline {
+  position: relative;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface);
+  padding-bottom: 14px;
+  overflow: hidden;
+}
+.ruler {
+  height: 30px;
+  border-bottom: 1px solid var(--line);
+  margin-left: 44px;
+  background-image:
+    repeating-linear-gradient(90deg, var(--muted) 0 1px, transparent 1px 20%),
+    repeating-linear-gradient(90deg, var(--line) 0 1px, transparent 1px 5%);
+  background-size: 100% 12px, 100% 6px;
+  background-repeat: no-repeat;
+  position: relative;
+}
+.ruler .tc {
+  position: absolute; top: 12px;
+  font-family: var(--font-mono); font-size: 10px; color: var(--muted);
+  transform: translateX(4px);
+}
+.track { position: relative; height: 36px; margin: 10px 14px 0 44px; }
+.track .label {
+  position: absolute; left: -36px; top: 50%; transform: translateY(-50%);
+  font-family: var(--font-mono); font-size: 11px; color: var(--muted);
+}
+.clip {
+  position: absolute; top: 0; bottom: 0;
+  border-radius: 6px;
+  padding: 0 10px;
+  display: flex; align-items: center;
+  font-family: var(--font-mono); font-size: 11px; color: var(--fg);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  border: 1px solid color-mix(in srgb, var(--accent) 45%, transparent);
+  background: color-mix(in srgb, var(--accent) 26%, var(--surface));
+}
+.clip.b { background: color-mix(in srgb, var(--accent) 14%, var(--surface)); }
+.clip.audio {
+  background:
+    repeating-linear-gradient(90deg, color-mix(in srgb, var(--accent) 60%, transparent) 0 2px, transparent 2px 5px),
+    color-mix(in srgb, var(--accent) 8%, var(--surface));
+  background-size: 100% 55%, 100% 100%;
+  background-repeat: repeat-x, no-repeat;
+  background-position: 0 center, 0 0;
+}
+.playhead {
+  position: absolute; top: 0; bottom: 0; left: calc(44px + (100% - 58px) * 0.42);
+  width: 1px; background: var(--accent); pointer-events: none;
+}
+.playhead::before {
+  content: "00:00:12:08";
+  position: absolute; top: 6px; left: 6px;
+  font-family: var(--font-mono); font-size: 10px; color: var(--accent-ink);
+  background: var(--accent); padding: 1px 6px; border-radius: 3px; white-space: nowrap;
+}
+
+/* Seções */
+section { padding-block: 56px; border-top: 1px solid var(--line); }
+.sec-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 24px; margin-bottom: 32px; }
+h2 { font-family: var(--font-display); font-weight: 600; font-size: clamp(26px, 4vw, 36px); letter-spacing: -0.02em; margin: 0; text-wrap: balance; }
+.sec-note { color: var(--muted); font-size: 14px; margin: 0; }
+
+/* Trabalhos */
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 440px), 1fr)); gap: 20px; }
+.card {
+  display: flex; flex-direction: column; min-width: 0;
+  background: var(--surface); border: 1px solid var(--line); border-radius: 12px; overflow: hidden;
+  transition: border-color 0.15s, transform 0.15s;
+}
+.card:hover { border-color: color-mix(in srgb, var(--accent) 60%, var(--line)); transform: translateY(-2px); }
+.frame {
+  position: relative; aspect-ratio: 16 / 9; max-width: 100%;
+  background: linear-gradient(135deg, hsl(var(--h) 45% 22%), hsl(calc(var(--h) + 30) 40% 12%));
+  display: grid; place-items: center;
+  border-bottom: 1px solid var(--line);
+}
+.frame .tcode { position: absolute; left: 12px; bottom: 10px; font-family: var(--font-mono); font-size: 11px; color: color-mix(in srgb, var(--fg) 75%, transparent); }
+.frame .track-id { position: absolute; left: 12px; top: 10px; font-family: var(--font-mono); font-size: 11px; color: color-mix(in srgb, var(--fg) 75%, transparent); }
+.play {
+  width: 52px; height: 52px; border-radius: 50%;
+  background: color-mix(in srgb, var(--bg) 55%, transparent);
+  border: 1px solid color-mix(in srgb, var(--fg) 35%, transparent);
+  display: grid; place-items: center;
+}
+.play svg { width: 18px; height: 18px; fill: var(--fg); margin-left: 3px; }
+.card-body { padding: 18px 18px 20px; display: flex; flex-direction: column; gap: 10px; flex: 1; min-width: 0; }
+.chip {
+  align-self: flex-start; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.04em;
+  color: var(--accent); border: 1px solid color-mix(in srgb, var(--accent) 40%, transparent);
+  padding: 2px 8px; border-radius: 999px;
+}
+.card h3 { font-family: var(--font-display); font-weight: 600; font-size: 18px; line-height: 1.3; letter-spacing: -0.01em; margin: 0; text-wrap: balance; }
+.channel { color: var(--muted); font-size: 14px; margin: 0; }
+.watch { margin-top: auto; padding-top: 6px; font-size: 14px; font-weight: 600; color: var(--accent); }
+
+/* Acessibilidade */
+.a11y { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: 40px; align-items: center; }
+.a11y > div { min-width: 0; }
+.a11y-intro { color: var(--muted); max-width: 52ch; margin: 16px 0 0; }
+.a11y-list { list-style: none; padding: 0; margin: 24px 0 0; display: grid; }
+.a11y-list li { padding-block: 16px; border-top: 1px solid var(--line); }
+.a11y-list li:last-child { border-bottom: 1px solid var(--line); }
+.a11y-list strong { display: block; font-family: var(--font-display); font-weight: 600; font-size: 17px; letter-spacing: -0.01em; }
+.a11y-list span { color: var(--muted); font-size: 15px; }
+.demo {
+  position: relative; aspect-ratio: 16 / 9; max-width: 100%; overflow: hidden;
+  border: 1px solid var(--line); border-radius: 12px;
+  background: linear-gradient(135deg, hsl(150 40% 20%), hsl(175 38% 11%));
+}
+.demo .demo-label { position: absolute; left: 12px; top: 10px; font-family: var(--font-mono); font-size: 11px; color: color-mix(in srgb, var(--fg) 75%, transparent); }
+.demo-libras {
+  position: absolute; right: 3%; bottom: 5%; width: 17%; aspect-ratio: 3 / 4;
+  border: 2px solid var(--accent); border-radius: 10px; background: var(--surface);
+  display: grid; place-items: end center; overflow: hidden; color: var(--muted);
+}
+.demo-libras svg { width: 80%; height: auto; display: block; }
+.demo-libras b {
+  position: absolute; left: 6px; top: 6px; font-family: var(--font-mono); font-weight: 500; font-size: 10px;
+  color: var(--accent-ink); background: var(--accent); padding: 1px 6px; border-radius: 3px;
+}
+.demo-cc {
+  position: absolute; left: 5%; right: 26%; bottom: 7%;
+  background: color-mix(in srgb, var(--bg) 88%, transparent); color: var(--fg);
+  padding: 8px 12px; border-radius: 4px; font-size: 12px; line-height: 1.35;
+}
+@media (max-width: 560px) { .demo-cc { font-size: 11px; padding: 6px 8px; } }
+
+
+.frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.card:hover { transform: none; }
+
+/* Serviços */
+.services { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 0; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; background: var(--surface); }
+.service { padding: 24px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); margin: 0 -1px -1px 0; min-width: 0; }
+.service h3 { font-family: var(--font-display); font-size: 18px; font-weight: 600; margin: 0 0 8px; letter-spacing: -0.01em; }
+.service p { margin: 0; color: var(--muted); font-size: 15px; }
+
+/* Rodapé */
+footer { border-top: 1px solid var(--line); padding-block: 28px 40px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; color: var(--muted); font-size: 14px; }
+footer .mono { font-family: var(--font-mono); font-size: 12px; }
+
+@media (max-width: 560px) {
+  .hero { padding-block: 48px 40px; }
+  .nav { gap: 16px; }
+  .clip { font-size: 10px; padding: 0 6px; }
+  .ruler .tc.hide-sm { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .card { transition: none; }
+  .card:hover { transform: none; }
+}
+</style>
+
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="#inicio">Bruno Benjamim <span>/ edição de vídeo</span></a>
+    <nav class="nav" aria-label="Seções">
+      <a href="#trabalhos">Trabalhos</a>
+      <a href="#acessibilidade">Acessibilidade</a>
+      <a href="#servicos">Serviços</a>
+    </nav>
+  </header>
+
+  <main id="inicio">
+    <div class="hero">
+      <div>
+        <div class="eyebrow">Edição de vídeo e acessibilidade</div>
+        <h1>Vídeos editados para todo mundo entender.</h1>
+        <p class="lead">Sou o Bruno Benjamim. Edito vídeos de notícia e de entretenimento com foco em acessibilidade, principalmente conteúdo em Libras, onde cada decisão de corte, enquadramento e texto na tela ajuda o público a acompanhar.</p>
+        <div class="actions">
+          <a class="btn primary" href="#trabalhos">Ver trabalhos</a>
+          <a class="btn" href="#servicos">O que eu faço</a>
+        </div>
+      </div>
+
+      <div class="timeline" aria-hidden="true">
+        <div class="ruler">
+          <span class="tc" style="left:0">00:00</span>
+          <span class="tc hide-sm" style="left:20%">00:05</span>
+          <span class="tc" style="left:40%">00:10</span>
+          <span class="tc hide-sm" style="left:60%">00:15</span>
+          <span class="tc" style="left:80%">00:20</span>
+        </div>
+        <div class="track"><span class="label">V2</span>
+          <div class="clip b" style="left:6%;width:18%">título</div>
+          <div class="clip b" style="left:58%;width:22%">gráfico</div>
+        </div>
+        <div class="track"><span class="label">V1</span>
+          <div class="clip" style="left:0;width:31%">abertura</div>
+          <div class="clip" style="left:32%;width:36%">entrevista</div>
+          <div class="clip" style="left:69%;width:31%">encerramento</div>
+        </div>
+        <div class="track"><span class="label">LB</span>
+          <div class="clip b" style="left:0;width:100%">janela de intérprete de Libras</div>
+        </div>
+        <div class="track"><span class="label">CC</span>
+          <div class="clip b" style="left:2%;width:28%">legenda</div>
+          <div class="clip b" style="left:34%;width:30%">legenda</div>
+          <div class="clip b" style="left:68%;width:30%">legenda</div>
+        </div>
+        <div class="track"><span class="label">AD</span>
+          <div class="clip b" style="left:8%;width:20%">audiodescrição</div>
+          <div class="clip b" style="left:72%;width:22%">audiodescrição</div>
+        </div>
+        <div class="track"><span class="label">A1</span>
+          <div class="clip audio" style="left:0;width:100%"></div>
+        </div>
+        <div class="playhead"></div>
+      </div>
+    </div>
+
+    <section id="trabalhos">
+      <div class="sec-head">
+        <h2>Trabalhos</h2>
+        <p class="sec-note">Quatro vídeos que editei. Cada um abre no YouTube.</p>
+      </div>
+      <div class="grid">
+        <div class="card">
+          <div class="frame"><iframe src="https://www.youtube-nocookie.com/embed/EYfwZKTLkKs" title="Onda de frio chega no Sul e Sudeste esta semana" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
+          <div class="card-body">
+            <span class="chip">Notícia em Libras</span>
+            <h3>Onda de frio chega no Sul e Sudeste esta semana</h3>
+            <p class="channel">Libraria News</p>
+            <a class="watch" href="https://www.youtube.com/watch?v=EYfwZKTLkKs" target="_blank" rel="noopener">Abrir no YouTube ↗</a>
+          </div>
+        </div>
+        <div class="card">
+          <div class="frame"><iframe src="https://www.youtube-nocookie.com/embed/uxb0vm3qJvU" title="Maquiagem | Make para o dia a dia" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
+          <div class="card-body">
+            <span class="chip">Entretenimento em Libras</span>
+            <h3>Maquiagem | Make para o dia a dia</h3>
+            <p class="channel">Libraria Play</p>
+            <a class="watch" href="https://www.youtube.com/watch?v=uxb0vm3qJvU" target="_blank" rel="noopener">Abrir no YouTube ↗</a>
+          </div>
+        </div>
+        <div class="card">
+          <div class="frame"><iframe src="https://www.youtube-nocookie.com/embed/hm7CtZIon_s" title="Pensamento Nerd | I.A. - Como ela destruiria a humanidade" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
+          <div class="card-body">
+            <span class="chip">Entretenimento em Libras</span>
+            <h3>I.A. - Como ela destruiria a humanidade</h3>
+            <p class="channel">Libraria Play</p>
+            <a class="watch" href="https://www.youtube.com/watch?v=hm7CtZIon_s" target="_blank" rel="noopener">Abrir no YouTube ↗</a>
+          </div>
+        </div>
+        <div class="card">
+          <div class="frame"><iframe src="https://www.youtube-nocookie.com/embed/SwXWG9kUk4k" title="Mais um vídeo editado por Bruno Benjamim" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
+          <div class="card-body">
+            <span class="chip">Notícia em Libras</span>
+            <h3>Primeira Bíblia em Libras</h3>
+            <p class="channel">Libraria News</p>
+            <a class="watch" href="https://www.youtube.com/watch?v=SwXWG9kUk4k" target="_blank" rel="noopener">Abrir no YouTube ↗</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="acessibilidade">
+      <div class="a11y">
+        <div>
+          <h2>Edição pensada para acessibilidade</h2>
+          <p class="a11y-intro">Boa parte do meu trabalho é conteúdo em Libras. Isso muda a forma de editar: a janela do intérprete precisa ficar sempre visível e legível, e o restante do vídeo se organiza em volta dela.</p>
+          <ul class="a11y-list">
+            <li><strong>Janela de Libras</strong><span>Tamanho, posição e contraste ajustados para os sinais ficarem claros, sem cobrir gráficos nem legendas.</span></li>
+            <li><strong>Legendas e texto na tela</strong><span>Texto com bom contraste e tempo suficiente para leitura.</span></li>
+            <li><strong>Audiodescrição</strong><span>Narra cenas, gráficos e textos na tela para quem não enxerga, encaixada nas pausas para não competir com a fala.</span></li>
+            <li><strong>Ritmo e áudio</strong><span>Cortes que não atropelam a informação e voz limpa para quem também ouve.</span></li>
+          </ul>
+        </div>
+        <div class="demo" role="img" aria-label="Exemplo de quadro de vídeo com janela de intérprete de Libras no canto direito e legenda na parte inferior">
+          <span class="demo-label">Exemplo de enquadramento</span>
+          <div class="demo-libras">
+            <b>Libras</b>
+            <svg viewBox="0 0 60 60" aria-hidden="true"><circle cx="30" cy="20" r="10" fill="currentColor"/><path d="M6 60c0-14 10-22 24-22s24 8 24 22z" fill="currentColor"/></svg>
+          </div>
+          <div class="demo-cc">Onda de frio chega ao Sul e Sudeste esta semana</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="servicos">
+      <div class="sec-head">
+        <h2>O que eu faço</h2>
+        <p class="sec-note">Da gravação bruta ao vídeo pronto para publicar.</p>
+      </div>
+      <div class="services">
+        <div class="service">
+          <h3>Corte e ritmo</h3>
+          <p>Montagem que mantém o vídeo fluindo, sem pausas desnecessárias.</p>
+        </div>
+        <div class="service">
+          <h3>Áudio</h3>
+          <p>Limpeza de ruído, equilíbrio entre voz e trilha, volume consistente.</p>
+        </div>
+        <div class="service">
+          <h3>Cor e acabamento</h3>
+          <p>Correção de cor e transições discretas para um visual uniforme.</p>
+        </div>
+        <div class="service">
+          <h3>Títulos e gráficos</h3>
+          <p>Letreiros, legendas e elementos na tela que ajudam a entender o conteúdo.</p>
+        </div>
+        <div class="service">
+          <h3>Janela de Libras</h3>
+          <p>Dentro do padrão do mercado, aumentando a sua base de clientes.</p>
+        </div>
+        <div class="service">
+          <h3>Audiodescrição</h3>
+          <p>Narra cenas e textos na tela para quem não enxerga, encaixada nas pausas.</p>
+        </div>
+        <div class="service">
+          <h3>Legenda descritiva</h3>
+          <p>Explica elementos auditivos para que os surdos tenham acesso irrestrito ao material.</p>
+        </div>
+        <div class="service">
+          <h3>Qualidade garantida</h3>
+          <p>Mais de 15 anos de experiência em edição de vídeo.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <span>© 2026 Bruno Benjamim</span>
+    <span class="mono">Edição de vídeo</span>
+  </footer>
+</div>
+
+</body>
+</html>
